@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snackbar</title>
+    
+  <script type="module" crossorigin src="/goit-js-hw-10/commonHelpers2.js"></script>
+  <link rel="modulepreload" crossorigin href="/goit-js-hw-10/assets/styles-5aa417fa.js">
+  <link rel="stylesheet" href="/goit-js-hw-10/assets/styles-b5a4dfed.css">
+</head>
+
+<body>
+    <header>
+    <div class="container">
+        <nav class="nav">
+            <a class="btn btn-red" href="./index.html">Main</a>
+            <a class="btn btn-blue" href="./1-timer.html">1 Timer</a>
+            <a class="btn btn-blue" href="./2-snackbar.html">2 Snackbar</a>
+        </nav>
+    </div>
+</header>
+<script>
+
+    const list = document.querySelectorAll('.nav a')
+    const href = window.location.pathname;
+
+    list.forEach((link)=>{
+        if (href == link.pathname) link.style.display = 'none'
+    })
+
+</script>
+    <main>
+        <div class="container">
+            <form class="feedback-form" autocomplete="off">
+                <label>Email<input name="email" type="email" autofocus>
+                </label>
+                <label>Message<textarea name="message" rows="8"></textarea>
+                </label>
+                <button class="btn-blue" type="submit">Submit</button>
+            </form>
+        </div>
+    </main>
+    
+</body>
+
+</html>
