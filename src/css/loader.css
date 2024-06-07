@@ -1,0 +1,4 @@
+#loader{position:fixed;top:0;left:0;width:100dvw;height:100dvh;background-color:rgba(4, 0, 41, 0.5);transition:all 250ms ease-in}
+#loader .spinner{width:70px;height:70px;border:12px solid #f3f3f3;border-top:12px solid #444444;border-radius:50%;animation:spin 1s linear infinite}
+#loader .spinner.center{position:absolute;top:0;right:0;bottom:0;left:0;margin:auto}
+@keyframes spin{100%{transform:rotate(360deg)}}
