@@ -1,0 +1,28 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 360px;
+}
+.form label {
+
+}
+.form fieldset {
+    display: flex;
+    flex-direction: row;
+    gap: 48px;
+    justify-content: center;
+    padding: 24px 28px 8px;
+}
+.form fieldset label {
+    display: flex;
+    flex-direction: row;
+}
+.form input[type=radio] {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+.form button {
+    width: 100%;
+}

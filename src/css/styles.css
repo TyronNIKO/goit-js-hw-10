@@ -1,5 +1,9 @@
 @import url('./reset.css');
 @import url('./common.css');
+@import url('./buttons.css');
+@import url('./forms.css');
 @import url('./header.css');
-@import url('./gallery.css');
-@import url('./form.css');
+@import url('./flatpicker-reset.css');
+@import url('./izitoast-reset.css');
+@import url('./timer.css');
+@import url('./snackbar.css');

@@ -4,6 +4,7 @@
 import flatpickr from 'flatpickr';
 // Додатковий імпорт стилів
 import 'flatpickr/dist/flatpickr.min.css';
+import { Ukrainian } from 'flatpickr/dist/l10n/uk.js';
 
 // Описаний у документації
 import iziToast from 'izitoast';
@@ -11,45 +12,34 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 class Timer {
-	refs = {
-		input: document.querySelector('input#datetime-picker'),
-		start: document.querySelector('[data-start]'),
-		days: document.querySelector('[data-days]'),
-		hours: document.querySelector('[data-hours]'),
-		minutes: document.querySelector('[data-minutes]'),
-		seconds: document.querySelector('[data-seconds]'),
-	};
-	constructor() {}
+	constructor() {
+		this.refs = {
+			input: document.querySelector('input#datetime-picker'),
+			start: document.querySelector('[data-start]'),
+			days: document.querySelector('[data-days]'),
+			hours: document.querySelector('[data-hours]'),
+			minutes: document.querySelector('[data-minutes]'),
+			seconds: document.querySelector('[data-seconds]'),
+		};
+		this.futureDate = null;
+	}
 	convertMs(ms) {
-		// Number of milliseconds per unit of time
 		const second = 1000;
 		const minute = second * 60;
 		const hour = minute * 60;
 		const day = hour * 24;
-
-		// Remaining days
 		const days = Math.floor(ms / day);
-		// Remaining hours
 		const hours = Math.floor((ms % day) / hour);
-		// Remaining minutes
 		const minutes = Math.floor(((ms % day) % hour) / minute);
-		// Remaining seconds
 		const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-
 		return { days, hours, minutes, seconds };
 	}
 	validateTime(current, selected) {
-		let valid = false;
-		if (current < selected) {
-			valid = true;
-		}
-		return valid;
+		return current < selected;
 	}
 	addLeadingZero(value) {
-		console.log(value);
-		// let formated = String(value).padStart(2, '0');
-		let formated = value < 10 ? '0' + value : value;
-		return formated;
+		// return value < 10 ? '0' + value : value;
+		return String(value).padStart(2, '0');
 	}
 	// renderTimer({ days, hours, minutes, seconds }) {
 	// 	this.refs.days.innerText = this.addLeadingZero(days);
@@ -63,13 +53,32 @@ class Timer {
 			this.refs[key].innerText = this.addLeadingZero(obj[key]);
 		});
 	}
+	newInterval(time, delay) {
+		const interval = setInterval(() => {
+			let currentTime = Date.now();
+			const remainingTime = time - currentTime;
+			if (remainingTime >= 0) {
+				this.renderTimer(this.convertMs(remainingTime));
+			} else {
+				iziToast.info({
+					timeout: 10000,
+					position: 'topCenter',
+					title: 'Info',
+					message: 'Time expired. Input has been reset!',
+				});
+				clearInterval(interval);
+				this.refs.input.removeAttribute('disabled');
+				this.refs.start.removeAttribute('disabled');
+			}
+		}, delay);
+	}
 	init() {
 		this.refs.start.setAttribute('disabled', '');
 		this.refs.start.addEventListener('click', e => {
 			e.preventDefault();
-			console.log(e.target);
-			const currDate = Date.now();
-			console.log(currDate);
+			this.newInterval(this.futureDate, 1000);
+			this.refs.input.setAttribute('disabled', '');
+			this.refs.start.setAttribute('disabled', '');
 		});
 	}
 }
@@ -80,15 +89,15 @@ const options = {
 	time_24hr: true,
 	defaultDate: new Date(),
 	minuteIncrement: 1,
+	locale: Ukrainian, // locale for this instance only
 	onClose(selectedDates) {
 		console.log(selectedDates[0]);
-		const validation = timer.validateTime(
-			options.defaultDate,
-			selectedDates[0]
-		);
+		const validation = timer.validateTime(Date.now(), selectedDates[0]);
 		if (validation) {
-			const diff = selectedDates[0] - options.defaultDate;
+			const diff = selectedDates[0] - Date.now();
 			timer.renderTimer(timer.convertMs(diff));
+			timer.refs.start.removeAttribute('disabled');
+			timer.futureDate = selectedDates[0].getTime();
 		} else {
 			iziToast.error({
 				position: 'topRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter
@@ -101,5 +110,4 @@ const options = {
 
 timer.init();
 
-const picker = flatpickr(timer.refs.input, options);
-console.log(picker);
+flatpickr(timer.refs.input, options);
