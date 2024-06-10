@@ -5,11 +5,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 const el = document.querySelector('form.form');
 el.addEventListener('submit', e => {
 	e.preventDefault();
-	// console.log(e.target);
-	// console.log(e.submitter);
-	// console.log(el.elements.delay.value);
 	const delay = el.elements.delay.value;
-	// console.log(el.elements.state.value);
 	const state = el.elements.state.value;
 	createPromise(state, delay);
 });
@@ -33,17 +29,21 @@ function createPromise(state, delay) {
 		.then(state => {
 			console.log(state);
 			iziToast.success({
+				iconUrl: '../img/icons/success.svg',
 				timeout: 90000,
 				position: 'topRight',
-				message: `Fulfilled promise in ${delay}ms`,
+				title: 'Fulfilled',
+				message: `promise in ${delay}ms`,
 			});
 		}) // "Success! Value passed to resolve function"
 		.catch(error => {
 			console.log(error);
 			iziToast.error({
+				iconUrl: '../img/icons/icon-error.svg',
 				timeout: 90000,
 				position: 'topRight',
-				message: `Rejected promise in ${delay}ms`,
+				title: 'Rejected',
+				message: ` promise in ${delay}ms`,
 			});
 		}) // "Error! Error passed to reject function"
 		.finally(() => console.log('Promise settled')); // "Promise
