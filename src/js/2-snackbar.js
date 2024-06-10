@@ -30,7 +30,7 @@ function createPromise(state, delay) {
 			console.log(state);
 			iziToast.success({
 				iconUrl: '../img/icons/success.svg',
-				timeout: 90000,
+				timeout: 5000,
 				position: 'topRight',
 				title: 'Fulfilled',
 				message: `promise in ${delay}ms`,
@@ -40,7 +40,7 @@ function createPromise(state, delay) {
 			console.log(error);
 			iziToast.error({
 				iconUrl: '../img/icons/icon-error.svg',
-				timeout: 90000,
+				timeout: 5000,
 				position: 'topRight',
 				title: 'Rejected',
 				message: ` promise in ${delay}ms`,

@@ -95,6 +95,7 @@ const options = {
 			timer.futureDate = selectedDates[0].getTime();
 		} else {
 			iziToast.error({
+				iconUrl: '../img/icons/icon-error.svg',
 				position: 'topRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter
 				title: 'Error',
 				message: 'Please choose a date in the future',
