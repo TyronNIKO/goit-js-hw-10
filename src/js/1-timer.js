@@ -5,7 +5,22 @@ import 'flatpickr/dist/flatpickr.min.css';
 import { Ukrainian } from 'flatpickr/dist/l10n/uk.js';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import info from '/img/icons/info.svg';
+import error from '/img/icons/icon-error.svg';
 
+const icons = {
+	info,
+	error,
+};
+console.log(icons);
+
+iziToast.info({
+	timeout: false,
+	iconUrl: icons.info,
+	position: 'topCenter',
+	title: 'Info',
+	message: 'Time expired. Input has been reset!',
+});
 class Timer {
 	constructor() {
 		this.refs = {
@@ -56,7 +71,7 @@ class Timer {
 				this.renderTimer(this.convertMs(remainingTime));
 			} else {
 				iziToast.info({
-					timeout: 10000,
+					iconUrl: icons.info,
 					position: 'topCenter',
 					title: 'Info',
 					message: 'Time expired. Input has been reset!',
@@ -95,7 +110,7 @@ const options = {
 			timer.futureDate = selectedDates[0].getTime();
 		} else {
 			iziToast.error({
-				iconUrl: './img/icons/icon-error.svg',
+				iconUrl: icons.error,
 				position: 'topRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter
 				title: 'Error',
 				message: 'Please choose a date in the future',

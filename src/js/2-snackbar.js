@@ -1,7 +1,13 @@
 'use strict';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import success from '/img/icons/success.svg';
+import error from '/img/icons/icon-error.svg';
 
+const icons = {
+	success,
+	error,
+};
 const el = document.querySelector('form.form');
 el.addEventListener('submit', e => {
 	e.preventDefault();
@@ -29,7 +35,7 @@ function createPromise(state, delay) {
 		.then(state => {
 			console.log(state);
 			iziToast.success({
-				iconUrl: './img/icons/success.svg',
+				iconUrl: icons.success,
 				timeout: 5000,
 				position: 'topRight',
 				title: 'Fulfilled',
@@ -39,7 +45,7 @@ function createPromise(state, delay) {
 		.catch(error => {
 			console.log(error);
 			iziToast.error({
-				iconUrl: './img/icons/icon-error.svg',
+				iconUrl: icons.error,
 				timeout: 5000,
 				position: 'topRight',
 				title: 'Rejected',

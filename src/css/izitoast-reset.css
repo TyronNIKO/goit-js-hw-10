@@ -30,13 +30,14 @@
 .iziToast.iziToast-color-red .iziToast-progressbar>div {
     background-color: #B51B1B !important;
 }
-.iziToast.iziToast-color-red {
-	border-color: #ffbebe !important;
-	background-color: #ef4040 !important;
+.iziToast.iziToast-color-blue {
+	border-color: #B8E3FF !important;
+	background-color: #0099FF !important;
 }
-.iziToast.iziToast-color-red .iziToast-progressbar>div {
-    background-color: #B51B1B !important;
+.iziToast.iziToast-color-blue .iziToast-progressbar>div {
+    background-color: #0071BD !important;
 }
+
 .iziToast>.iziToast-close {
     background: none !important; /* Видалити фоновий колір */
     cursor: pointer !important; /* Додати курсор вказівника */
